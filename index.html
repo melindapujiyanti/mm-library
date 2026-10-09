@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melinda's Mini Library | MM Library</title>
+<style>
+:root {
+  --blue: #cfe8f8;
+  --pink: #f9dce7;
+  --cream: #fffaf1;
+  --purple: #e7def8;
+  --ink: #34445a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.6;
+}
+header {
+  padding: 18px 7%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #eee7df;
+}
+.logo { font-size: 21px; font-weight: 800; }
+.logo span { color: #6b91c7; }
+nav { display: flex; gap: 18px; flex-wrap: wrap; }
+nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
+.hero {
+  margin: 28px auto;
+  width: 88%;
+  padding: 48px 28px;
+  border-radius: 28px;
+  background: linear-gradient(120deg, #d9edfb, #f8e3ed, #fff0d6);
+  text-align: center;
+}
+.hero .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: bold;
+}
+h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.2; margin: 12px 0; }
+.hero p { max-width: 580px; margin: 12px auto; }
+.search {
+  display: block;
+  width: min(100%, 480px);
+  margin: 24px auto 0;
+  padding: 15px 18px;
+  border: 1px solid #d8dce4;
+  border-radius: 30px;
+  font-size: 15px;
+  background: white;
+}
+main { width: 88%; margin: 38px auto 60px; }
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+h2 { margin-bottom: 4px; font-size: 27px; }
+.muted { color: #718096; font-size: 14px; }
+.filters { display: flex; flex-wrap: wrap; gap: 9px; margin: 22px 0; }
+.filter {
+  border: 0;
+  padding: 9px 16px;
+  border-radius: 22px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+}
+.filter.active { background: #789dcc; color: white; }
+.books {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+.book {
+  background: white;
+  border-radius: 20px;
+  padding: 14px;
+  box-shadow: 0 5px 20px #39485a0c;
+}
+.cover {
+  height: 205px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px;
+  color: #34445a;
+}
+.cover .emoji { font-size: 48px; margin-bottom: 8px; }
+.cover strong { font-size: 19px; line-height: 1.3; }
+.cover small { margin-top: 8px; }
+.book h3 { margin: 14px 0 2px; font-size: 18px; }
+.book p { font-size: 14px; color: #657184; }
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #f1edf9;
+  border-radius: 16px;
+  font-size: 12px;
+}
+.detail {
+  border: 0;
+  background: #e4effa;
+  color: #35577e;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.empty { display: none; padding: 25px; text-align: center; }
+.about {
+  padding: 36px 8%;
+  border-radius: 24px;
+  background: #f7e7ef;
+  text-align: center;
+  margin-top: 42px;
+}
+footer {
+  padding: 26px 15px;
+  background: #dcecf8;
+  text-align: center;
+  font-size: 14px;
+}
+dialog {
+  max-width: 440px;
+  width: calc(100% - 32px);
+  border: 0;
+  border-radius: 22px;
+  padding: 25px;
+  color: var(--ink);
+}
+dialog::backdrop { background: #1e2b3b99; }
+.close { float: right; border: 0; background: #eee; padding: 8px 12px; border-radius: 9px; cursor: pointer; }
+@media (max-width: 600px) {
+  header { padding: 16px 6%; }
+  .hero { width: 92%; padding: 36px 18px; }
+  main { width: 92%; }
+  nav { gap: 12px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">📚 MM <span>Library</span></div>
+  <nav>
+    <a href="#beranda">Beranda</a>
+    <a href="#koleksi">Koleksi Buku</a>
+    <a href="#tentang">Tentang</a>
+  </nav>
+</header>
+
+<section class="hero" id="beranda">
+  <div class="eyebrow">Welcome to MM Library ✨</div>
+  <h1>Temukan Cerita Favoritmu!</h1>
+  <p><strong>Melinda's Mini Library</strong> — Baca Buku, Buka Dunia.
+  Tambah Ilmu, Kaya Jiwa.</p>
+  <p>Tempat kecil untuk menemukan ide, ilmu, dan petualangan baru di setiap halaman.</p>
+  <input class="search" id="search" type="search"
+    placeholder="🔎 Cari judul buku atau penulis...">
+</section>
+
+<main id="koleksi">
+  <div class="section-heading">
+    <div>
+      <h2>Jelajahi Koleksi 📖</h2>
+      <div class="muted">Temukan bacaan untuk menemani harimu.</div>
+    </div>
+    <div class="muted" id="count"></div>
+  </div>
+
+  <div class="filters">
+    <button class="filter active" data-category="Semua">Semua</button>
+    <button class="filter" data-category="Anak">Anak</button>
+    <button class="filter" data-category="Dongeng">Dongeng</button>
+    <button class="filter" data-category="Pendidikan">Pendidikan</button>
+    <button class="filter" data-category="Inspirasi">Inspirasi</button>
+  </div>
+
+  <div class="books" id="books"></div>
+  <div class="empty" id="empty">Buku tidak ditemukan. Coba kata kunci lain ya! 💙</div>
+
+  <section class="about" id="tentang">
+    <h2>Tentang MM Library 💗</h2>
+    <p>Melinda's Mini Library hadir untuk mendekatkan pembaca dengan
+    dunia literasi. Karena setiap buku menyimpan cerita, dan setiap
+    cerita membuka jendela menuju dunia yang lebih luas.</p>
+    <strong>“Baca Buku, Buka Dunia. Tambah Ilmu, Kaya Jiwa.”</strong>
+  </section>
+</main>
+
+<footer>
+  📚 Melinda's Mini Library · MM Library<br>
+  Membaca hari ini, menemukan dunia baru setiap hari.
+</footer>
+
+<dialog id="bookDialog">
+  <button class="close" id="closeDialog">Tutup ✕</button>
+  <div id="dialogContent"></div>
+</dialog>
+
+<script>
+const bookList = [
+  {
+    title: "Petualangan di Negeri Dongeng",
+    author: "Tim MM Library",
+    category: "Dongeng",
+    emoji: "🏰",
+    color: "#f6dce8",
+    desc: "Ikuti petualangan ajaib penuh persahabatan, keberanian, dan kejutan di negeri yang penuh keajaiban."
+  },
+  {
+    title: "Keluarga Kelinci di Hutan",
+    author: "Tim MM Library",
+    category: "Anak",
+    emoji: "🐰",
+    color: "#dcefdc",
+    desc: "Kisah keluarga kelinci yang belajar saling membantu, menyayangi, dan menjaga rumah mereka di hutan."
+  },
+  {
+    title: "Planet Kita, Bumi",
+    author: "Tim MM Library",
+    category: "Pendidikan",
+    emoji: "🌎",
+    color: "#d8ebfb",
+    desc: "Kenali bumi, alam, dan cara sederhana menjaga lingkungan agar tetap indah untuk generasi berikutnya."
+  },
+  {
+    title: "Rahasia Bintang Kecil",
+    author: "Tim MM Library",
+    category: "Dongeng",
+    emoji: "🌟",
+    color: "#fff0c9",
+    desc: "Sebuah cerita imajinatif tentang bintang kecil yang mencari keberanian untuk bersinar di langit malam."
+  },
+  {
+    title: "Aku Suka Membaca",
+    author: "Tim MM Library",
+    category: "Pendidikan",
+    emoji: "📚",
+    color: "#e8e0fa",
+    desc: "Bacaan ringan yang mengajak anak mengenal manfaat membaca dan menjadikan buku sebagai sahabat."
+  },
+  {
+    title: "Berani Bermimpi",
+    author: "Tim MM Library",
+    category: "Inspirasi",
+    emoji: "🌈",
+    color: "#f9e0d5",
+    desc: "Kisah penyemangat tentang percaya diri, tekun belajar, dan berani melangkah untuk meraih cita-cita."
+  }
+];
+
+let activeCategory = "Semua";
+const booksElement = document.getElementById("books");
+const searchElement = document.getElementById("search");
+const dialog = document.getElementById("bookDialog");
+
+function renderBooks() {
+  const query = searchElement.value.toLowerCase().trim();
+  const filtered = bookList.filter(book =>
+    (activeCategory === "Semua" || book.category === activeCategory) &&
+    (book.title.toLowerCase().includes(query) ||
+     book.author.toLowerCase().includes(query) ||
+     book.desc.toLowerCase().includes(query))
+  );
+
+  booksElement.innerHTML = filtered.map(book => `
+    <article class="book">
+      <div class="cover" style="background:${book.color}">
+        <div class="emoji">${book.emoji}</div>
+        <strong>${book.title}</strong>
+        <small>MM Library</small>
+      </div>
+      <h3>${book.title}</h3>
+      <div class="muted">✍️ ${book.author}</div>
+      <p>${book.desc}</p>
+      <span class="tag">${book.category}</span>
+      <p><button class="detail" data-title="${book.title}">Lihat Detail →</button></p>
+    </article>
+  `).join("");
+
+  document.getElementById("count").textContent =
+    filtered.length + " buku ditampilkan";
+  document.getElementById("empty").style.display =
+    filtered.length ? "none" : "block";
+}
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    activeCategory = button.dataset.category;
+    document.querySelectorAll(".filter").forEach(b =>
+      b.classList.toggle("active", b === button)
+    );
+    renderBooks();
+  });
+});
+
+searchElement.addEventListener("input", renderBooks);
+
+booksElement.addEventListener("click", event => {
+  const button = event.target.closest(".detail");
+  if (!button) return;
+  const book = bookList.find(b => b.title === button.dataset.title);
+  document.getElementById("dialogContent").innerHTML = `
+    <div style="font-size:52px">${book.emoji}</div>
+    <h2>${book.title}</h2>
+    <p><strong>Penulis:</strong> ${book.author}</p>
+    <p><strong>Kategori:</strong> ${book.category}</p>
+    <p>${book.desc}</p>
+    <p class="muted">Contoh koleksi untuk tampilan awal MM Library.
+    Ganti dengan data buku asli saat siap.</p>
+  `;
+  dialog.showModal();
+});
+
+document.getElementById("closeDialog").addEventListener("click", () => {
+  dialog.close();
+});
+
+renderBooks();
+</script>
+</body>
+</html>
