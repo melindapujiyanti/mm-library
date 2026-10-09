@@ -1,382 +1,211 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Melinda's Mini Library | Melinda's Mini Library</title>
+<meta name="theme-color" content="#fff8ef">
+<meta name="description" content="Melinda's Mini Library — Baca Buku, Buka Dunia. Tambah Ilmu, Kaya Jiwa.">
+<title>MM Library — Melinda's Mini Library</title>
 <style>
-:root {
-  --blue: #cfe8f8;
-  --pink: #f9dce7;
-  --cream: #fffaf1;
-  --purple: #e7def8;
-  --ink: #34445a;
+:root{
+  --ink:#40536f; --cream:#fff8ef; --wood:#bd824e; --wood-dark:#8c5935;
+  --blue:#dceafa; --pink:#f9dce5; --mint:#e1f0df; --lavender:#e9e0f8;
+  --gold:#ffe7ae; --shadow:0 8px 22px rgba(88,57,31,.15);
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: "Trebuchet MS", Arial, sans-serif;
-  color: var(--ink);
-  background: var(--cream);
-  line-height: 1.6;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"Trebuchet MS",Arial,sans-serif;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.site-header{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px clamp(16px,5vw,72px);background:rgba(255,250,243,.97);border-bottom:1px solid #eadfd1;position:relative;z-index:2}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-icon{font-size:clamp(30px,4vw,48px)}
+.brand-name{font-size:clamp(21px,2.5vw,32px);font-weight:900;line-height:1.05;color:#55749e}
+.brand-sub{font-size:12px;font-weight:700;letter-spacing:.2px;margin-top:4px}
+nav{display:flex;align-items:center;gap:clamp(8px,2vw,28px);font-size:14px;font-weight:700}
+nav a{padding:9px 15px;border-radius:22px;white-space:nowrap}
+nav a:first-child,nav a:hover{background:#e2edf9}
+.hero{position:relative;overflow:hidden;text-align:center;padding:35px 18px 32px;min-height:245px;background:
+radial-gradient(ellipse at 7% 15%,rgba(255,255,255,.8),transparent 32%),
+linear-gradient(115deg,#f9eadb,#fff8ef 48%,#f5e6d8)}
+.hero:before{content:"🌿";position:absolute;left:3%;bottom:4px;font-size:clamp(30px,5vw,64px);opacity:.85}
+.hero:after{content:"💗";position:absolute;right:5%;top:18px;font-size:25px}
+.eyebrow{text-transform:uppercase;letter-spacing:3px;font-size:11px;font-weight:800}
+.hero h1{font-size:clamp(30px,4.2vw,55px);line-height:1.1;margin:12px 0;color:#4e6484}
+.hero p{margin:10px auto;max-width:650px}
+.search-wrap{max-width:490px;margin:22px auto 0;position:relative}
+.search-wrap:before{content:"🔎";position:absolute;left:16px;top:11px}
+#search{width:100%;border:1px solid #d6dce5;border-radius:30px;background:#fff;padding:13px 18px 13px 44px;outline:none;box-shadow:0 3px 10px #67523c0b}
+#search:focus{border-color:#91b6dc;box-shadow:0 0 0 3px #dceafa}
+.shelf-area{padding:26px clamp(12px,4.8vw,72px) 0;background:linear-gradient(180deg,#f2e0cc,#ead0b1 55%,#e4c29b);position:relative}
+.shelf-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:0;padding:10px 18px;background:linear-gradient(#d9a66f,#b97b45);border:2px solid #a66d3c;border-radius:13px 13px 4px 4px;box-shadow:var(--shadow);color:#fff8ed}
+.shelf-label{font-size:clamp(19px,2.4vw,27px);font-weight:900}
+.shelf-note{background:#f8dce4;color:#5b5261;border-radius:20px;padding:7px 13px;font-size:12px;font-weight:700}
+.wood-shelf{padding:26px 18px 18px;background:
+repeating-linear-gradient(4deg,rgba(113,67,34,.045) 0 2px,transparent 2px 17px),
+linear-gradient(90deg,#a66b3c,#d7a16a 9%,#c48a51 50%,#e0b17a 92%,#a96e3e);
+border-left:10px solid #ae7545;border-right:10px solid #ae7545;box-shadow:inset 0 8px 12px #7245263b}
+.book-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(9px,2vw,28px);align-items:end}
+.book-card{min-width:0;text-align:center;display:flex;flex-direction:column;align-items:center}
+.book-cover{width:min(100%,170px);aspect-ratio:3/4.3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:12px 8px 10px;border-radius:5px 8px 8px 5px;border-left:5px solid rgba(54,75,99,.15);box-shadow:5px 5px 8px #5c381e55,inset 4px 0 4px #ffffff40;overflow:hidden;transition:transform .2s}
+.book-card:hover .book-cover{transform:translateY(-5px) rotate(-1deg)}
+.cover-blue{background:linear-gradient(#a9d7f5,#f2e7d5 60%,#8fbd8d)}
+.cover-mint{background:linear-gradient(#d8efd8,#fff1d6 65%,#b4d39b)}
+.cover-sky{background:linear-gradient(#b9ddf5,#eaf3e8 58%,#7eb7a5)}
+.cover-night{background:linear-gradient(#182b57,#423f83 65%,#f3c5df);color:#fff}
+.cover-pink{background:linear-gradient(#f8d5e1,#fff1e0 65%,#f1c4ce)}
+.cover-gold{background:linear-gradient(#ffe8ad,#f9d4b4 65%,#d7b27d)}
+.cover-emoji{font-size:clamp(24px,3vw,43px);margin-top:8px}
+.cover-title{font-family:Georgia,serif;font-size:clamp(12px,1.25vw,18px);font-weight:800;line-height:1.2;text-shadow:0 1px 0 #fff8}
+.cover-small{font-size:9px;letter-spacing:1px}
+.book-caption{background:#fff1df;border:1px solid #e9cda9;border-radius:10px;padding:8px 6px;margin-top:-3px;width:100%;max-width:180px;box-shadow:0 4px 8px #70421e35;font-size:12px;line-height:1.3;position:relative}
+.book-caption strong{display:block;font-size:12px}
+.book-caption span{font-size:11px;color:#687489}
+.shelf-plank{height:17px;margin:4px -18px 0;background:linear-gradient(#f2c78f,#c18a51 35%,#a66c3b 100%);border-top:3px solid #f7d5a5;box-shadow:0 6px 9px #69401e40}
+.categories-section{margin-top:0}
+.category-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,3vw,36px);padding:24px 3% 22px}
+.category{border-radius:12px;min-height:120px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;border:2px solid #ffffff80;box-shadow:0 5px 9px #70421e35;cursor:pointer;font-weight:800;color:#46546b;transition:transform .2s}
+.category:hover{transform:translateY(-4px)}
+.category .symbol{font-size:30px}
+.cat-pink{background:#f8d7e1}.cat-lavender{background:#ded1f2}.cat-blue{background:#c6e0f7}.cat-gold{background:#ffe5ac}
+footer{text-align:center;background:#fff6ec;padding:20px 14px;font-size:13px;font-weight:700}
+.empty{display:none;text-align:center;padding:20px;background:#fff8ef;border-radius:12px;margin:15px 0}
+@media(max-width:900px){
+ .site-header{padding:12px 18px}
+ .book-grid{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:25px}
+ .book-cover{width:min(100%,160px)}
+ .hero{min-height:230px}
 }
-header {
-  padding: 18px 7%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  border-bottom: 1px solid #eee7df;
+@media(max-width:560px){
+ .site-header{align-items:flex-start;flex-direction:column;gap:10px}
+ .brand{width:100%}
+ nav{width:100%;justify-content:space-between;gap:3px;font-size:12px}
+ nav a{padding:7px 9px}
+ .hero{padding:30px 16px 26px;min-height:220px}
+ .hero:before{left:1%;bottom:0}
+ .hero:after{right:4%;top:9px}
+ .hero h1{font-size:31px;max-width:340px;margin:14px auto}
+ .hero p{font-size:13px;max-width:330px}
+ .eyebrow{font-size:9px;letter-spacing:2px}
+ .search-wrap{margin-top:18px}
+ .shelf-area{padding:17px 8px 0}
+ .shelf-top{padding:9px 10px;gap:7px}
+ .shelf-label{font-size:18px}
+ .shelf-note{font-size:10px;padding:6px 9px}
+ .wood-shelf{padding:18px 8px 12px;border-left-width:5px;border-right-width:5px}
+ .book-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px}
+ .book-cover{width:min(100%,145px);padding:10px 6px 8px}
+ .cover-title{font-size:14px}
+ .cover-emoji{font-size:31px}
+ .book-caption{max-width:145px;padding:7px 4px}
+ .book-caption strong{font-size:11px}
+ .book-caption span{font-size:10px}
+ .shelf-plank{margin-left:-8px;margin-right:-8px}
+ .category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:17px 2%}
+ .category{min-height:95px}
 }
-.logo { font-size: 21px; font-weight: 800; }
-.logo span { color: #6b91c7; }
-nav { display: flex; gap: 18px; flex-wrap: wrap; }
-nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
-
-.hero {
-  margin: 28px auto;
-  width: 88%;
-  min-height: 300px;
-  padding: 48px 28px;
-  border-radius: 28px;
-
-  background-image:
-    linear-gradient(
-      rgba(255, 250, 245, 0.25),
-      rgba(255, 250, 245, 0.25)
-    ),
-    url("banner web.png");
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.hero .eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 12px;
-  font-weight: bold;
-}
-h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.2; margin: 12px 0; }
-.hero p { max-width: 580px; margin: 12px auto; }
-.search {
-  display: block;
-  width: min(100%, 480px);
-  margin: 24px auto 0;
-  padding: 15px 18px;
-  border: 1px solid #d8dce4;
-  border-radius: 30px;
-  font-size: 15px;
-  background: white;
-}
-main { width: 88%; margin: 38px auto 60px; }
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-h2 { margin-bottom: 4px; font-size: 27px; }
-.muted { color: #718096; font-size: 14px; }
-.filters { display: flex; flex-wrap: wrap; gap: 9px; margin: 22px 0; }
-.filter {
-  border: 0;
-  padding: 9px 16px;
-  border-radius: 22px;
-  background: white;
-  color: var(--ink);
-  cursor: pointer;
-}
-.filter.active { background: #789dcc; color: white; }
-.books {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 22px;
-}
-.book {
-  background: white;
-  border-radius: 20px;
-  padding: 14px;
-  box-shadow: 0 5px 20px #39485a0c;
-}
-.cover {
-  height: 205px;
-  border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 18px;
-  color: #34445a;
-}
-.cover .emoji { font-size: 48px; margin-bottom: 8px; }
-.cover strong { font-size: 19px; line-height: 1.3; }
-.cover small { margin-top: 8px; }
-.book h3 { margin: 14px 0 2px; font-size: 18px; }
-.book p { font-size: 14px; color: #657184; }
-.tag {
-  display: inline-block;
-  padding: 4px 10px;
-  background: #f1edf9;
-  border-radius: 16px;
-  font-size: 12px;
-}
-.detail {
-  border: 0;
-  background: #e4effa;
-  color: #35577e;
-  border-radius: 12px;
-  padding: 10px 14px;
-  cursor: pointer;
-  font-weight: bold;
-}
-.empty { display: none; padding: 25px; text-align: center; }
-.about {
-  padding: 36px 8%;
-  border-radius: 24px;
-  background: #f7e7ef;
-  text-align: center;
-  margin-top: 42px;
-}
-footer {
-  padding: 26px 15px;
-  background: #dcecf8;
-  text-align: center;
-  font-size: 14px;
-}
-dialog {
-  max-width: 440px;
-  width: calc(100% - 32px);
-  border: 0;
-  border-radius: 22px;
-  padding: 25px;
-  color: var(--ink);
-}
-dialog::backdrop { background: #1e2b3b99; }
-.close { float: right; border: 0; background: #eee; padding: 8px 12px; border-radius: 9px; cursor: pointer; }
-@media (max-width: 600px) {
-  header { padding: 16px 6%; }
-  .hero { width: 92%; padding: 36px 18px; }
-  main { width: 92%; }
-  nav { gap: 12px; }
-}
-
-.hero {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 300px;
-  background-size: cover;
-  background-position: center;
-}
-
-.hero-content {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 200px;
-}
-
-.hero-content .search {
-  width: min(90%, 480px);
-  margin: 0;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #d7dfed;
-  border-radius: 30px;
-  padding: 14px 18px;
-}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">📚 Melinda's Mini <span>Library</span></div>
-  <nav>
+<header class="site-header">
+  <a class="brand" href="#beranda" aria-label="MM Library beranda">
+    <span class="brand-icon" aria-hidden="true">📚</span>
+    <span>
+      <span class="brand-name">MM Library</span>
+      <span class="brand-sub" style="display:block">Melinda’s Mini Library</span>
+    </span>
+  </a>
+  <nav aria-label="Navigasi utama">
     <a href="#beranda">Beranda</a>
     <a href="#koleksi">Koleksi Buku</a>
+    <a href="#kategori">Kategori</a>
     <a href="#tentang">Tentang</a>
   </nav>
 </header>
 
 <section class="hero" id="beranda">
-  <div class="hero-content">
-    <input
-      class="search"
-      id="search"
-      type="search"
-      placeholder="🔎 Cari judul buku atau penulis..."
-    >
+  <div class="eyebrow">Welcome to MM Library 💗</div>
+  <h1>Temukan Cerita Favoritmu!</h1>
+  <p><strong>Melinda’s Mini Library</strong> — Baca Buku, Buka Dunia!</p>
+  <p>Tambah Ilmu, Kaya Jiwa. Temukan bacaan untuk menemani harimu.</p>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Cari judul buku atau penulis..." aria-label="Cari judul buku atau penulis">
   </div>
 </section>
 
-<main id="koleksi">
-  <div class="section-heading">
-    <div>
-      <h2>Jelajahi Koleksi 📖</h2>
-      <div class="muted">Temukan bacaan untuk menemani harimu.</div>
+<main>
+<section class="shelf-area" id="koleksi">
+  <div class="shelf-top">
+    <div class="shelf-label">📖 Koleksi Buku ♡</div>
+    <div class="shelf-note">♡ Buku pilihan untuk hari yang lebih baik ♡</div>
+  </div>
+  <div class="wood-shelf">
+    <div class="book-grid" id="bookGrid"></div>
+    <div class="empty" id="empty">Buku tidak ditemukan. Coba kata kunci lain ya! 💙</div>
+    <div class="shelf-plank"></div>
+  </div>
+
+  <div class="shelf-top categories-section" id="kategori">
+    <div class="shelf-label">♡ Kategori</div>
+    <div class="shelf-note">Baca sesuai minatmu ♡</div>
+  </div>
+  <div class="wood-shelf">
+    <div class="category-grid">
+      <button class="category cat-pink" data-category="Anak"><span class="symbol">🐻</span>Anak ♡</button>
+      <button class="category cat-lavender" data-category="Dongeng"><span class="symbol">🏰</span>Dongeng ♡</button>
+      <button class="category cat-blue" data-category="Pendidikan"><span class="symbol">🎓</span>Pendidikan ♡</button>
+      <button class="category cat-gold" data-category="Inspirasi"><span class="symbol">💡</span>Inspirasi ♡</button>
     </div>
-    <div class="muted" id="count"></div>
+    <div class="shelf-plank"></div>
   </div>
+</section>
 
-  <div class="filters">
-    <button class="filter active" data-category="Semua">Semua</button>
-    <button class="filter" data-category="Non Fiksi">Non Fiksi</button>
-    <button class="filter" data-category="Fiksi">Fiksi</button>
-    <button class="filter" data-category="Parenting">Parenting</button>
-    <button class="filter" data-category="Psikologi">Psikologi</button>
-  </div>
-
-  <div class="books" id="books"></div>
-  <div class="empty" id="empty">Buku tidak ditemukan. Coba kata kunci lain ya! 💙</div>
-
-  <section class="about" id="tentang">
-    <h2>Tentang MM Library 💗</h2>
-    <p>Melinda's Mini Library hadir untuk mendekatkan pembaca dengan
-    dunia literasi. Karena setiap buku menyimpan cerita, dan setiap
-    cerita membuka jendela menuju dunia yang lebih luas.</p>
-    <strong>“Baca Buku, Buka Dunia!”</strong>
-  </section>
+<section id="tentang" style="text-align:center;padding:32px 16px 38px">
+  <h2>Tentang MM Library 💗</h2>
+  <p style="max-width:650px;margin:0 auto">Rumah kecil untuk cerita, pengetahuan, dan imajinasi. Semoga setiap buku membuka jendela menuju dunia yang lebih luas.</p>
+  <strong>Baca Buku, Buka Dunia. Tambah Ilmu, Kaya Jiwa.</strong>
+</section>
 </main>
 
-<footer>
-  📚 Melinda's Mini Library · MM Library<br>
-  Membaca hari ini, temukan dunia baru setiap hari.
-</footer>
-
-<dialog id="bookDialog">
-  <button class="close" id="closeDialog">Tutup ✕</button>
-  <div id="dialogContent"></div>
-</dialog>
+<footer>📚 MM Library · Membaca hari ini, menemukan dunia baru setiap hari. 💗</footer>
 
 <script>
-const bookList = [
-  {
-    title: "Petualangan di Negeri Dongeng",
-    author: "Tim MM Library",
-    category: "Dongeng",
-    emoji: "🏰",
-    color: "#f6dce8",
-    desc: "Ikuti petualangan ajaib penuh persahabatan, keberanian, dan kejutan di negeri yang penuh keajaiban."
-  },
-  {
-    title: "Keluarga Kelinci di Hutan",
-    author: "Tim MM Library",
-    category: "Anak",
-    emoji: "🐰",
-    color: "#dcefdc",
-    desc: "Kisah keluarga kelinci yang belajar saling membantu, menyayangi, dan menjaga rumah mereka di hutan."
-  },
-  {
-    title: "Planet Kita, Bumi",
-    author: "Tim MM Library",
-    category: "Pendidikan",
-    emoji: "🌎",
-    color: "#d8ebfb",
-    desc: "Kenali bumi, alam, dan cara sederhana menjaga lingkungan agar tetap indah untuk generasi berikutnya."
-  },
-  {
-    title: "Rahasia Bintang Kecil",
-    author: "Tim MM Library",
-    category: "Dongeng",
-    emoji: "🌟",
-    color: "#fff0c9",
-    desc: "Sebuah cerita imajinatif tentang bintang kecil yang mencari keberanian untuk bersinar di langit malam."
-  },
-  {
-    title: "Aku Suka Membaca",
-    author: "Tim MM Library",
-    category: "Pendidikan",
-    emoji: "📚",
-    color: "#e8e0fa",
-    desc: "Bacaan ringan yang mengajak anak mengenal manfaat membaca dan menjadikan buku sebagai sahabat."
-  },
-  {
-    title: "Berani Bermimpi",
-    author: "Tim MM Library",
-    category: "Inspirasi",
-    emoji: "🌈",
-    color: "#f9e0d5",
-    desc: "Kisah penyemangat tentang percaya diri, tekun belajar, dan berani melangkah untuk meraih cita-cita."
-  }
+const books = [
+ {title:"Laskar Pelangi",author:"Andrea Hirata",category:"Inspirasi",emoji:"🌈",cover:"cover-blue",desc:"Novel tentang persahabatan, pendidikan, dan perjuangan anak-anak Belitung dalam meraih mimpi."},
+ {title:"Keluarga Kelinci di Hutan",author:"Tim MM Library",category:"Anak",emoji:"🐰",cover:"cover-mint",desc:"Kisah hangat keluarga kelinci yang belajar saling membantu dan menyayangi."},
+ {title:"Planet Kita, Bumi",author:"Tim MM Library",category:"Pendidikan",emoji:"🌎",cover:"cover-sky",desc:"Mengenal bumi, alam, dan cara sederhana menjaga lingkungan."},
+ {title:"Rahasia Bintang Kecil",author:"Tim MM Library",category:"Dongeng",emoji:"✨",cover:"cover-night",desc:"Cerita imajinatif tentang bintang kecil yang belajar berani bersinar."},
+ {title:"Aku Suka Membaca",author:"Tim MM Library",category:"Anak",emoji:"📖",cover:"cover-pink",desc:"Bacaan ringan tentang manfaat membaca dan menjadikan buku sebagai sahabat."},
+ {title:"Berani Bermimpi",author:"Tim MM Library",category:"Inspirasi",emoji:"🌅",cover:"cover-gold",desc:"Cerita penyemangat tentang percaya diri, rajin belajar, dan meraih cita-cita."}
 ];
-
-let activeCategory = "Semua";
-const booksElement = document.getElementById("books");
-const searchElement = document.getElementById("search");
-const dialog = document.getElementById("bookDialog");
-
-function renderBooks() {
-  const query = searchElement.value.toLowerCase().trim();
-  const filtered = bookList.filter(book =>
-    (activeCategory === "Semua" || book.category === activeCategory) &&
-    (book.title.toLowerCase().includes(query) ||
-     book.author.toLowerCase().includes(query) ||
-     book.desc.toLowerCase().includes(query))
-  );
-
-  booksElement.innerHTML = filtered.map(book => `
-    <article class="book">
-      <div class="cover" style="background:${book.color}">
-        <div class="emoji">${book.emoji}</div>
-        <strong>${book.title}</strong>
-        <small>MM Library</small>
-      </div>
-      <h3>${book.title}</h3>
-      <div class="muted">✍️ ${book.author}</div>
-      <p>${book.desc}</p>
-      <span class="tag">${book.category}</span>
-      <p><button class="detail" data-title="${book.title}">Lihat Detail →</button></p>
-    </article>
-  `).join("");
-
-  document.getElementById("count").textContent =
-    filtered.length + " buku ditampilkan";
-  document.getElementById("empty").style.display =
-    filtered.length ? "none" : "block";
+const grid=document.getElementById("bookGrid");
+const search=document.getElementById("search");
+const empty=document.getElementById("empty");
+let category="Semua";
+function renderBooks(){
+ const q=search.value.trim().toLowerCase();
+ const list=books.filter(b=>(category==="Semua"||b.category===category)&&
+  [b.title,b.author,b.category,b.desc].some(v=>v.toLowerCase().includes(q)));
+ grid.innerHTML=list.map((b,i)=>`
+  <article class="book-card">
+   <div class="book-cover ${b.cover}" role="img" aria-label="Ilustrasi sampul ${b.title}">
+    <span class="cover-small">MM LIBRARY</span>
+    <span class="cover-emoji" aria-hidden="true">${b.emoji}</span>
+    <span class="cover-title">${b.title}</span>
+    <span class="cover-small">♡ BACA & JELAJAHI ♡</span>
+   </div>
+   <div class="book-caption"><strong>${b.title}</strong><span>${b.author}</span><details style="margin-top:6px;text-align:left"><summary style="cursor:pointer">Lihat keterangan</summary><p style="margin:6px 0 0">${b.desc}</p><span class="tag">${b.category}</span></details></div>
+  </article>`).join("");
+ empty.style.display=list.length?"none":"block";
 }
-
-document.querySelectorAll(".filter").forEach(button => {
-  button.addEventListener("click", () => {
-    activeCategory = button.dataset.category;
-    document.querySelectorAll(".filter").forEach(b =>
-      b.classList.toggle("active", b === button)
-    );
-    renderBooks();
-  });
-});
-
-searchElement.addEventListener("input", renderBooks);
-
-booksElement.addEventListener("click", event => {
-  const button = event.target.closest(".detail");
-  if (!button) return;
-  const book = bookList.find(b => b.title === button.dataset.title);
-  document.getElementById("dialogContent").innerHTML = `
-    <div style="font-size:52px">${book.emoji}</div>
-    <h2>${book.title}</h2>
-    <p><strong>Penulis:</strong> ${book.author}</p>
-    <p><strong>Kategori:</strong> ${book.category}</p>
-    <p>${book.desc}</p>
-    <p class="muted">Contoh koleksi untuk tampilan awal MM Library.
-    Ganti dengan data buku asli saat siap.</p>
-  `;
-  dialog.showModal();
-});
-
-document.getElementById("closeDialog").addEventListener("click", () => {
-  dialog.close();
-});
-
+search.addEventListener("input",renderBooks);
+document.querySelectorAll(".category").forEach(btn=>btn.addEventListener("click",()=>{
+ category=category===btn.dataset.category?"Semua":btn.dataset.category;
+ document.querySelectorAll(".category").forEach(b=>b.style.outline=b===btn&&category!=="Semua"?"3px solid #fff":"none");
+ document.getElementById("koleksi").scrollIntoView({behavior:"smooth"});
+ renderBooks();
+}));
 renderBooks();
 </script>
 </body>
