@@ -35,13 +35,28 @@ header {
 .logo span { color: #6b91c7; }
 nav { display: flex; gap: 18px; flex-wrap: wrap; }
 nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
+
 .hero {
   margin: 28px auto;
   width: 88%;
+  min-height: 300px;
   padding: 48px 28px;
   border-radius: 28px;
-  background: linear-gradient(120deg, #d9edfb, #f8e3ed, #fff0d6);
+
+  background-image:
+    linear-gradient(
+      rgba(255, 250, 245, 0.25),
+      rgba(255, 250, 245, 0.25)
+    ),
+    url("banner web.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 .hero .eyebrow {
   text-transform: uppercase;
